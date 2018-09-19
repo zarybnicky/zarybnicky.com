@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>main</title>
+<!-- 2018-09-19 Wed 21:58 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">main</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. How did I get here</a>
+<ul>
+<li><a href="#sec-1-1">1.1. How did I get here?</a></li>
+<li><a href="#sec-1-2">1.2. What will I do then?</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> How did I get here</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+So I finally have a bachelor's thesis topic - my task is to create
+a full-stack web framework for Haskell, and I have maybe eight months
+to do it (from now to the middle of May 2019).
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> How did I get here?</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+I've been looking for a suitable topic for a while now. I knew I wanted
+something challenging - but not Ph.D.-level challenging. I also wanted to work
+in Haskell - but that's a mostly unknown topic at my uni. I needed a topic where
+I could present something as my own work at the end, together with a theoretical
+background - if I worked on an existing open-source project, I'd need
+significant results and the theory to back it up.
+</p>
+
+<p>
+I went through a long list of topics from GSoC topic suggestions from previous
+years to 'Next work' sections of recent research papers. I found a lot of
+challenging topics (incremental GC for GHC was the first topic I investigated),
+a lot of practical-but-too-small topics, and a few topics of just the right size
+and in interesting areas, but I kept postponing and waiting for just the right
+topic.
+</p>
+
+<p>
+The right topic appeared as a byproduct of my personal projects, Haskell
+websites (Yesod, Scotty, and some others). Maybe a year ago, I needed to create
+an interactive web interface. The obvious solution would be to use technologies
+I knew (React.js or Angular), but I'd gotten tired of writing JavaScript at my
+day job. I had my eyes on GHCJS and related projects for quite some time, so
+this was the perfect opportunity.
+</p>
+
+<p>
+There are several frameworks built on GHCJS, but out of them I liked Reflex the
+most. (I guess part of the reason I chose it over the others was the added
+novelty and challenge of FRP, oh well&#x2026;) But however much I liked it, it became
+obvious that there are a lot of things missing in Reflex and reflex-platform,
+that are present in most of the batteries-included JavaScript frameworks,
+</p>
+
+<p>
+After a pause, I'd returned to my Reflex projects over the holidays, and I saw
+my perfect bachelor's thesis topic. It needed to be refined, of course, but the
+basis was there. I've looked for inspiration in other frameworks and found
+Meteor.js among others, which was the very close to what I'd imagined the result
+of my thesis to be. Another topic I saw references all over was the concept of a
+Progressive Web Application (PWA), and that tied my topic together.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> What will I do then?</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Meteor.js is a full-stack platform in a quite wide sense of the word. It takes
+care of everything from the data layer, through back-end and front-end
+implementations, to the communication layer. There is a lively community around
+it and an ecosystem in which I didn't find any obvious holes (great tooling,
+libraries covering many concerns, &#x2026;).
+</p>
+
+<p>
+As for PWAs, it's mostly a Google-created buzzword that consists of a 'PWA
+checklist' and a few related tools. It captures recent trends in mobile and web
+application and tries to remove the line between them, with offline capabilities
+or push notifications.
+</p>
+
+<p>
+I'd been especially interested in one item on the PWA checklist - 'offline
+capabilities'. That's a hard topic and looking at some PWAs, I didn't like the
+application-specific protocols some used, nor the opaque and sometimes
+error-prone libraries used by others.
+</p>
+
+<p>
+I'd like to focus on two things in my project: tooling that a developer from
+the JavaScript world would take for granted - a framework-specific debugger,
+profiler/benchmark tool, and testing tooling; and a full-stack data engine, from
+database integration to non-opaque synchronization.
+</p>
+
+<p>
+I'll need to focus for two reasons. One, I have <b><b>only</b></b> eight months, in which
+I'll be working on this for maybe ten hours a week, which amounts to some 500h -
+and that isn't much. Two, I've recently discovered Obelisk by Obsidian Systems,
+which is a tool trying to tie up the loose ends left by reflex-platform
+(e.g. deployment) and to build upon that ('isomorphic rendering'). At this
+moment, I doubt I'll use it in my work as it's still a work-in-progress and I
+wouldn't consider it stable, but I'd like to build my work so that it can be
+used with Obelisk after my thesis is finished.
+</p>
+
+<p>
+In the next post, I'll have a look at other web frameworks in detail, and try to
+identify the must-haves and nice-to-haves of such a framework. Then I'll try to
+map it onto the Haskell/GHCJS/Reflex ecosystem, to see what's missing.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2018-09-19 Wed 21:58</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
