@@ -7,6 +7,7 @@ executable site
   main-is: site.hs
   hs-source-dirs: .
   build-depends: base == 4.*
+               , filepath
                , hakyll == 4.10.*
                , hakyll-series
   ghc-options: -Wall
@@ -17,4 +18,6 @@ executable site
                -Wmonomorphism-restriction
                -fwarn-tabs
                -O2
+               -fno-diagnostics-show-caret
+               -fdiagnostics-color=never
   default-language: Haskell2010
