@@ -7,7 +7,8 @@ let
     baseName != "builder.cabal" &&
     baseName != "site.hs" &&
     baseName != "_cache" &&
-    baseName != "_site";
+    baseName != "_site" &&
+    !(pkgs.lib.hasPrefix ".ghc.environment." baseName);
 
   filterBuilder = path: _:
     baseNameOf path == "builder.cabal" ||

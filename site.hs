@@ -26,11 +26,19 @@ main =
       compile copyFileCompiler
 
     match (fromList ["about.org", "contact.org"]) $ do
-      route (setExtension "html")
+      route (niceRoute `composeRoutes` setExtension "html")
       compile $
         pandocCompiler >>=
+        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
         loadAndApplyTemplate "templates/default.html" defaultContext >>=
-        relativizeUrls >>=
+        cleanIndexUrls
+
+    create ["archive.html"] $ do
+      route niceRoute
+      compile $ makeItem "" >>=
+        loadAndApplyTemplate "templates/archive.html" archiveCtx >>=
+        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
+        loadAndApplyTemplate "templates/default.html" archiveCtx >>=
         cleanIndexUrls
 
     match "posts/*" $ do
@@ -38,17 +46,9 @@ main =
       compile $
         pandocCompiler >>=
         loadAndApplyTemplate "templates/post.html" postCtx >>=
+        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
         loadAndApplyTemplate "templates/default.html" postCtx >>=
-        relativizeUrls >>=
         cleanIndexUrls
-
-    create ["archive.html"] $ do
-      route idRoute
-      compile $ makeItem "" >>=
-          loadAndApplyTemplate "templates/archive.html" archiveCtx >>=
-          loadAndApplyTemplate "templates/default.html" archiveCtx >>=
-          relativizeUrls >>=
-          cleanIndexUrls
 
     match "index.html" $ do
       route idRoute
@@ -56,7 +56,6 @@ main =
         getResourceBody >>=
           applyAsTemplate indexCtx >>=
           loadAndApplyTemplate "templates/default.html" indexCtx >>=
-          relativizeUrls >>=
           cleanIndexUrls
 
     match "templates/*" $ compile templateCompiler
@@ -66,7 +65,7 @@ niceRoute :: Routes
 niceRoute = customRoute createIndexRoute
   where
     createIndexRoute (toFilePath -> p) =
-      takeDirectory p </> drop 11 (takeBaseName p) </> "index.html"
+      takeDirectory p </> takeBaseName p </> "index.html"
 
 cleanIndexUrls :: Item String -> Compiler (Item String)
 cleanIndexUrls = return . fmap (withUrls clean)
