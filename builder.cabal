@@ -9,7 +9,7 @@ executable site
   hs-source-dirs: .
   build-depends: base == 4.*
                , filepath
-               , hakyll == 4.10.*
+               , hakyll >= 4.10
                , hakyll-series
   ghc-options: -Wall
                -Wcompat
