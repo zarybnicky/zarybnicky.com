@@ -1,0 +1,86 @@
+<div class="section">
+  <div class="container content">
+    <h2 style="text-align:center">Portfolio</h2>
+
+    <div class="images">
+      <div class="slick-slide"><img src="/img/nolimits.png" alt="nolimits" /></div>
+      <div class="slick-slide"><img src="/img/akkopecny-cz.png" alt="AK Kopečný" /></div>
+      <div class="slick-slide"><img src="/img/unifor-echo.png" alt="Unifor Echo" /></div>
+      <div class="slick-slide"><img src="/img/tkolymp-cz.png" alt="TK Olymp" /></div>
+      <div class="slick-slide"><img src="/img/unifor-reader.png" alt="Unifor Reader" /></div>
+      <div class="slick-slide"><img src="/img/akdankova-cz.png" alt="AK Daňková" /></div>
+      <div class="slick-slide"><img src="/img/soaplat.png" alt="SOAPlat" /></div>
+    </div>
+
+    <div class="desc">
+      <div class="slick-slide">
+        <h3>nolimits</h3>
+        <div>
+          End-to-end creation of a company's brand image and its web
+          presentation.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>AKKopecny.cz</h3>
+        <div>
+          A simple web portfolio.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>Echo</h3>
+        <div>
+          A videoconferencing application for large groups, a web and
+          desktop application.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>TKOlymp.cz</h3>
+        <div>
+          A content management system and a planning tool for a
+          dancesport club.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>Reader</h3>
+        <div>
+          Mobile client for a learning management system, mainly an
+          offline document reader.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>AKDankova.cz</h3>
+        <div>
+          A simple web portfolio.
+        </div>
+      </div>
+      <div class="slick-slide">
+        <h3>SOAPlat</h3>
+        <div>
+          An experimental platform for realtime data processing for
+          extracting insights from public social media.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+ window.addEventListener('load', function () {
+     $$('.images').slick({
+         autoplay: true,
+         autoplaySpeed: 5000,
+         infinity: true,
+         speed: 500,
+         fade: true,
+         arrows: false,
+         dots: true,
+         asNavFor: '.desc',
+     });
+     $$('.desc').slick({
+         arrows: false,
+         asNavFor: '.images',
+         speed: 0,
+         fade: true,
+     });
+ });
+</script>

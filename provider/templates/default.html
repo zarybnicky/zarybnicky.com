@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="/style/font-awesome.min.css" />
     <link rel="stylesheet" href="/style/slick.css" />
+    <link rel="stylesheet" href="/style/bulma.css" />
     <link rel="stylesheet" href="/style/main.css" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -20,10 +21,44 @@
   </head>
 
   <body>
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/">
+            <img alt="" src="/img/seagull.png" style="padding-right:.5em" />
+            <h1 class="title is-4">Jakub Zárybnický</h1>
+          </a>
+
+          <a role="button" class="navbar-burger burger" aria-label="menu"
+             aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="/">Home</a>
+            <a class="navbar-item" href="/portfolio/">Portfolio</a>
+            <a class="navbar-item" href="/archive/">Writings</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
     $body$
 
     <script src="/script/bundle.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-106758218-1"></script>
+    <script>
+     $$(document).ready(function() {
+         $$(".navbar-burger").click(function() {
+             $$(".navbar-burger").toggleClass("is-active");
+             $$(".navbar-menu").toggleClass("is-active");
+         });
+     });
+    </script>
     <script>
      window.dataLayer = window.dataLayer || [];
      function gtag(){dataLayer.push(arguments)};

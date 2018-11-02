@@ -1,90 +1,22 @@
-<div class="wrapper">
-  <header style="margin: 2rem 0 3rem">
-    <h1>Jakub Zárybnický</h1>
-    <div><i>jakub (at) zarybnicky.com</i></div>
-    <div><img alt="" src="/img/seagull.png" style="width:40px;padding-top:8px;"/></div>
-    <h2>design</h2>
-    <h2>web systems</h2>
-    <h2>mobile applications</h2>
-  </header>
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <p>
+        Hi, my name is Jakub Zárybnický, a CS student at the Brno University of
+        Technology, currently in the process of writing my bachelor thesis.
+        I'll be writing about my thesis here - and hopefully more after I finish
+        it - but for now this website is pretty empty, sorry about that.
+      </p>
 
-  <div class="images">
-    <div><img src="/img/nolimits.png" alt="nolimits" /></div>
-    <div><img src="/img/akkopecny-cz.png" alt="AK Kopečný" /></div>
-    <div><img src="/img/unifor-echo.png" alt="Unifor Echo" /></div>
-    <div><img src="/img/tkolymp-cz.png" alt="TK Olymp" /></div>
-    <div><img src="/img/unifor-reader.png" alt="Unifor Reader" /></div>
-    <div><img src="/img/akdankova-cz.png" alt="AK Daňková" /></div>
-    <div><img src="/img/soaplat.png" alt="SOAPlat" /></div>
-  </div>
-  <div class="desc">
-    <div>
-      <h3>nolimits</h3>
-      <div>
-        End-to-end creation of a company's brand image and its web
-        presentation.
-      </div>
-    </div>
-    <div>
-      <h3>AKKopecny.cz</h3>
-      <div>
-        A simple web portfolio.
-      </div>
-    </div>
-    <div>
-      <h3>Echo</h3>
-      <div>
-        A videoconferencing application for large groups, a web and
-        desktop application.
-      </div>
-    </div>
-    <div>
-      <h3>TKOlymp.cz</h3>
-      <div>
-        A content management system and a planning tool for a
-        dancesport club.
-      </div>
-    </div>
-    <div>
-      <h3>Reader</h3>
-      <div>
-        Mobile client for a learning management system, mainly an
-        offline document reader.
-      </div>
-    </div>
-    <div>
-      <h3>AKDankova.cz</h3>
-      <div>
-        A simple web portfolio.
-      </div>
-    </div>
-    <div>
-      <h3>SOAPlat</h3>
-      <div>
-        An experimental platform for realtime data processing for
-        extracting insights from public social media.
-      </div>
+      <h2 class="title is-4 is-marginless">Recent writings</h2>
+      $partial("templates/post-list.html")$
+
+      <h2>Contact me</h2>
+      <p>
+        You can reach me at <a href="mailto:jakub@zarybnicky.com">
+        jakub@zarybnicky.com</a>, or in person in Brno, where I spent most of my
+        time.
+      </p>
     </div>
   </div>
 </div>
-
-<script>
- window.addEventListener('load', function () {
-     $$('.images').slick({
-         autoplay: true,
-         autoplaySpeed: 5000,
-         infinity: true,
-         speed: 500,
-         fade: true,
-         arrows: false,
-         dots: true,
-         asNavFor: '.desc',
-     });
-     $$('.desc').slick({
-         arrows: false,
-         asNavFor: '.images',
-         speed: 0,
-         fade: true,
-     });
- });
-</script>

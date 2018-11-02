@@ -1,12 +1,16 @@
-<article>
-  <h1>$title$</h1>
-  <section class="header">
-    Posted on $date$
-    $if(author)$
-      by $author$
-    $endif$
-  </section>
-  <section>
-    $body$
-  </section>
-</article>
+<div class="section">
+  <div class="container">
+    <section class="content">
+      <article>
+        <h2>$title$</h2>
+        <p class="has-text-grey">
+          Posted on $date$
+          $if(author)$
+          by $author$
+          $endif$
+        </p>
+        $body$
+      </article>
+    </section>
+  </div>
+</div>

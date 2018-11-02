@@ -25,19 +25,17 @@ main =
       route idRoute
       compile copyFileCompiler
 
-    match (fromList ["about.org", "contact.org"]) $ do
-      route (niceRoute `composeRoutes` setExtension "html")
-      compile $
-        pandocCompiler >>=
-        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
-        loadAndApplyTemplate "templates/default.html" defaultContext >>=
-        cleanIndexUrls
-
     create ["archive.html"] $ do
       route niceRoute
       compile $ makeItem "" >>=
         loadAndApplyTemplate "templates/archive.html" archiveCtx >>=
-        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
+        loadAndApplyTemplate "templates/default.html" archiveCtx >>=
+        cleanIndexUrls
+
+    create ["portfolio.html"] $ do
+      route niceRoute
+      compile $ makeItem "" >>=
+        loadAndApplyTemplate "templates/portfolio.html" archiveCtx >>=
         loadAndApplyTemplate "templates/default.html" archiveCtx >>=
         cleanIndexUrls
 
@@ -46,7 +44,6 @@ main =
       compile $
         pandocCompiler >>=
         loadAndApplyTemplate "templates/post.html" postCtx >>=
-        loadAndApplyTemplate "templates/menu.html" archiveCtx >>=
         loadAndApplyTemplate "templates/default.html" postCtx >>=
         cleanIndexUrls
 
