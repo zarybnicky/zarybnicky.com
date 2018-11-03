@@ -1,14 +1,13 @@
 ---
-title: PWAs in Haskell - Choosing my bachelor thesis topic
+title: PWAs in Haskell - Choosing a topic
+series: Bachelor's thesis
 ---
-
-* How did I get here
 
 So I finally have a bachelor's thesis topic - my task is to create
 a full-stack web framework for Haskell, and I have maybe eight months
 to do it (from now to the middle of May 2019).
 
-** How did I get here?
+* How did I get here?
 
 I've been looking for a suitable topic for a while now. I knew I wanted
 something challenging - but not Ph.D.-level challenging. I also wanted to work
@@ -44,7 +43,7 @@ Meteor.js among others, which was the very close to what I'd imagined the result
 of my thesis to be. Another topic I saw references all over was the concept of a
 Progressive Web Application (PWA), and that tied my topic together.
 
-** What will I do then?
+* What will I do then?
 
 Meteor.js is a full-stack platform in a quite wide sense of the word. It takes
 care of everything from the data layer, through back-end and front-end

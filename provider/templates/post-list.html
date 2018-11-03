@@ -1,7 +1,9 @@
 <ul>
-    $for(posts)$
-        <li>
-            <a href="$url$">$title$</a> - $date$
-        </li>
-    $endfor$
+  $for(posts)$
+  <li>
+    <a href="$url$">$title$</a> -
+    $if(series)$part of series <a href="$seriesUrl$">$series$</a>, $endif$
+    $date$
+  </li>
+  $endfor$
 </ul>

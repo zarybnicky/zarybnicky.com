@@ -1,19 +1,10 @@
 @charset 'UTF-8';
 
-.images {
-    max-width: 480px;
-    margin: 0 auto .5rem;
-}
 .images img {
     width: 100%;
 }
 .images .slick-list {
     box-shadow: 0 0 3px 3px #ddd;
-}
-.desc {
-    max-width: 480px;
-    margin: 0 auto;
-    text-align: left;
 }
 @media screen and (max-width: 480px) {
     .desc {

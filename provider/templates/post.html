@@ -1,16 +1,14 @@
-<div class="section">
-  <div class="container">
-    <section class="content">
-      <article>
-        <h2>$title$</h2>
-        <p class="has-text-grey">
-          Posted on $date$
-          $if(author)$
-          by $author$
-          $endif$
-        </p>
-        $body$
-      </article>
-    </section>
-  </div>
+<div class="container">
+  <article class="content">
+    <h1 class="is-marginless">$title$</h1>
+    $if(series)$
+    <div class="has-text-grey">
+      Part of series <a href="$seriesUrl$">$series$</a> (post $seriesCurPos$ of $seriesLength$)
+    </div>
+    $endif$
+    <p class="has-text-grey">
+      Posted on $date$$if(author)$ by $author$$endif$
+    </p>
+    $body$
+  </article>
 </div>

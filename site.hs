@@ -2,7 +2,9 @@
 {-# LANGUAGE ViewPatterns #-}
 
 import Data.List (isSuffixOf)
+import Data.Monoid ((<>))
 import Hakyll
+import Hakyll.Web.Series
 import System.FilePath ((</>), takeBaseName, takeDirectory)
 
 hakyllConf :: Configuration
@@ -13,6 +15,11 @@ hakyllConf = defaultConfiguration
 main :: IO ()
 main =
   hakyllWith hakyllConf $ do
+    series <- buildSeries "posts/*" (fromCapture "series/*.html")
+    let postCtx = seriesField series <>
+                  dateField "date" "%B %e, %Y" <>
+                  defaultContext
+
     match "img/*" $ do
       route idRoute
       compile copyFileCompiler
@@ -27,33 +34,53 @@ main =
 
     create ["archive.html"] $ do
       route niceRoute
-      compile $ makeItem "" >>=
-        loadAndApplyTemplate "templates/archive.html" archiveCtx >>=
-        loadAndApplyTemplate "templates/default.html" archiveCtx >>=
+      let ctx = constField "title" "Writings" <>
+                listField "posts" postCtx (recentFirst =<< loadAll "posts/*") <>
+                defaultContext
+      compile $
+        makeItem "" >>=
+        loadAndApplyTemplate "templates/archive.html" ctx >>=
+        loadAndApplyTemplate "templates/default.html" ctx >>=
         cleanIndexUrls
 
     create ["portfolio.html"] $ do
       route niceRoute
-      compile $ makeItem "" >>=
-        loadAndApplyTemplate "templates/portfolio.html" archiveCtx >>=
-        loadAndApplyTemplate "templates/default.html" archiveCtx >>=
+      let ctx = constField "title" "Portfolio" <> defaultContext
+      compile $
+        makeItem "" >>=
+        loadAndApplyTemplate "templates/portfolio.html" ctx >>=
+        loadAndApplyTemplate "templates/default.html" ctx >>=
+        cleanIndexUrls
+
+    tagsRules series $ \title pattrn -> do
+      route $ gsubRoute "[' ]" (const "-") `composeRoutes` niceRoute
+      let ctx = constField "title" title <>
+                listField "posts" postCtx (chronological =<< loadAll pattrn) <>
+                defaultContext
+      compile $
+        makeItem "" >>=
+        loadAndApplyTemplate "templates/series.html" ctx >>=
+        loadAndApplyTemplate "templates/default.html" ctx >>=
         cleanIndexUrls
 
     match "posts/*" $ do
       route niceRoute
       compile $
-        pandocCompiler >>=
+        (fmap demoteHeaders <$> pandocCompiler) >>=
         loadAndApplyTemplate "templates/post.html" postCtx >>=
         loadAndApplyTemplate "templates/default.html" postCtx >>=
         cleanIndexUrls
 
     match "index.html" $ do
       route idRoute
+      let ctx = constField "title" "Home" <>
+                listField "posts" postCtx (fmap (take 3) . recentFirst =<< loadAll "posts/*") <>
+                defaultContext
       compile $
         getResourceBody >>=
-          applyAsTemplate indexCtx >>=
-          loadAndApplyTemplate "templates/default.html" indexCtx >>=
-          cleanIndexUrls
+        applyAsTemplate ctx >>=
+        loadAndApplyTemplate "templates/default.html" ctx >>=
+        cleanIndexUrls
 
     match "templates/*" $ compile templateCompiler
 
@@ -71,23 +98,3 @@ cleanIndexUrls = return . fmap (withUrls clean)
     clean url
       | idx `isSuffixOf` url = take (length url - length idx) url
       | otherwise = url
-
-postCtx :: Context String
-postCtx = mconcat
-  [ dateField "date" "%B %e, %Y"
-  , defaultContext
-  ]
-
-indexCtx :: Context String
-indexCtx = mconcat
-  [ constField "title" "Home"
-  , listField "posts" postCtx (fmap (take 3) . recentFirst =<< loadAll "posts/*")
-  , defaultContext
-  ]
-
-archiveCtx :: Context String
-archiveCtx = mconcat
-  [ constField "title" "Archives"
-  , listField "posts" postCtx (recentFirst =<< loadAll "posts/*")
-  , defaultContext
-  ]
