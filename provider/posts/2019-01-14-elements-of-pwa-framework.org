@@ -129,28 +129,25 @@ measurements, or more involved tools like performance evolution tracking.
 - frontend - JS or HTML injection, ...
 - backend - SQL injection, auth escalation, ...
 
-
 ** Frontend
 *** Templating
-- several layers to this:
-- developer-made templates:
-  - overall HTML structure of the document
-  - HTML elements that make up a component
-  - + CSS or other styling languages
-- user-made templates
-  - themes
-  - HTML content
-  - dynamic dashboards & other compositions of widgets
+By templating, I mean a way to write the HTML that makes up an application,
+usually including some render logic and variable interpolation. In some
+frameworks the whole program is a template (see React), some have templates
+in separate files and compile them during runtime (see Angular). Templates
+sometimes contain CSS as well (see the new CSS-in-JS trend)
+
+*** Forms
+There are a few layers of abstraction at which a framework can decide to
+implement forms - starting at raw DOM manipulation, going on to data containers
+with validation (but manual rendering), all the way up to form builders, manual
+or automatic. Under 'forms' I count a way to render a form, to validate user
+input, and collect the result.
 
 *** Routing
 - History API
 - transitions between pages
 - showing the correct page on page load
-*** Form widget definition & validation
-- a simple way to go from data structures to a rendered and styled form
-- both manual formatting and composing elements, or automatically generated
-- validation - ideally identical to server-side validation, or perhaps skipping
-  some more computationally intensive validation steps
 
 *** Internationalization
 - starting from simple string translations, pluralization, word order
@@ -403,7 +400,6 @@ Framework = tools like create-react-app:
 - built-in auth (in-app, OAuth), roles
 - iso testing - e2e tests, unified reporting
 - rate limiting
-
 
 * Prioritizing
 
