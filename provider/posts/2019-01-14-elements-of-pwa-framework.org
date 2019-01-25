@@ -261,41 +261,48 @@ Some negatives that developers complain about:
   AngularJS that can't work with the new Angular
 
 **** React
-- components, JSW, different state management, higher-order components
-- keyboard accessibility, aXe-core
+React is not a framework in itself. Rather, it's a library that focuses on a
+single thing and does it in a unique enough way that there's sprung up an entire
+ecosystem around it. In it, there are groups of libraries that build upon React,
+each focusing on a single feature - UI components, state management, forms etc.
 
-Framework = tools like create-react-app:
+There's a large jungle of libraries, each one with a different scope and
+focus. Choosing a library that fits your problem can sometimes take many
+attempts. Add to it the fact that libraries, frameworks and tools come and go
+quite quickly - the main cause of the so-called "JavaScript fatigue - and the
+fact that in JavaScript, it's fashionable to write extremely small libraries,
+and you have a recipe for a quite unpleasant development experience.
 
-*Next*
-- css-in-js
-- routing, prefetch
-- hot code reload, prerender
-- 400, 500 error handling
-- sass, less, stylus
-- runtime-dynamic routes (wordpress?)
+I'll try to go through some of the most popular 'frameworks' that build on
+React, though each one is more of a pre-built toolkit of libraries and tools
+and bits of glue in between, rather than cohesive frameworks. In general, the
+React world is a lot more mix-and-match than developers used to enterprise
+frameworks would expect.
 
-*Gatsby*
-- JAM - static page pre-building
-- sitemap
-- image building in pipeline
-- drop-in offline app
+Create-react-app, nwb, Razzle, and Neutrino all cover only the build
+process. Next.js is the first one that I've found that goes a step beyond just
+pre-configuring Webpack and other build tools - it provides other features that
+are starting become standard - server-side runtime rendering, link prefetching,
+and build-time prerendering. It's also the first tool I found that considers
+that a website can consist of multiple applications, via its 'zones' feature.
 
-*Create React App*
+**** Gatsby
+One rather unique framework I found - and this is a framework in a strong
+sense, not like the React tools above - is Gatsby. It's unique in the sense that
+while it's a frontend framework, it's not supposed to run in a browser. It's a
+part of a growing movement centered around the 'JAM stack' - "JavaScript, APIs,
+and Markup". That doesn't tell you much, but the main feature is that at
+build-time, you fetch data from your APIs, and render the application to plain
+HTML files, so that you don't need a server other than an S3 bucket or similar.
 
-*Gatsby.js*
-
-*Razzle*
-
-*Neutrino*
+It's a framework targeted at a specific subset of website - not single-page
+applications, but more blogs or e-shops, and a workflow exemplified by Netlify.
+This means it doesn't need to concern itself with many features that would be
+missing in a frontend framework intended for a browser, and those are delegated
+to a different part of the stack.
 
 **** Vue.js
 **** Polymer
-**** Aurelia
-**** Cycle.js (done, esp. marble tests and time-travel debugger)
-- = cycle: state = user(state)
-- drivers
-- time-travel debugger
-- *marble tests*
 
 *** Elm
 
