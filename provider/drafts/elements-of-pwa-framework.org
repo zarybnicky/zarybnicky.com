@@ -1,11 +1,13 @@
 ---
 title: PWAs in Haskell - Elements of a web framework
 series: Bachelor's thesis
+date: 2019-01-14
 ---
 
 After a long delay where I didn't work on my thesis at all, I started again
-after Christmas. The finish line looms closer - it's now the middle of January
-and the deadline is the middle of May, so I have about four months remaining.
+after long-overdue check-in with my adviser. The finish line looms closer - it's
+now the middle of January and the deadline is the middle of May, so I have
+about four months remaining.
 
 I have a few goals in this post. The first is to find the features and tools
 developers require in a web framework in general, a surface survey of many
@@ -232,8 +234,7 @@ input, and collect the result.
 language; a general description (perhaps history?), "Notable features", "Notably absent"
 
 ** Frontend
-*** JavaScript
-**** Angular
+*** Angular (JavaScript)
 On a first look, Angular looks like a well thought-out frontend
 framework. Written in Typescript with comprehensive documentation and great
 tooling, it seems that the authors have learned from their mistakes with
@@ -260,7 +261,7 @@ Some negatives that developers complain about:
 - scattered documentation - too many articles and tutorials out there for
   AngularJS that can't work with the new Angular
 
-**** React
+*** React (JavaScript)
 React is not a framework in itself. Rather, it's a library that focuses on a
 single thing and does it in a unique enough way that there's sprung up an entire
 ecosystem around it. In it, there are groups of libraries that build upon React,
@@ -286,7 +287,7 @@ are starting become standard - server-side runtime rendering, link prefetching,
 and build-time prerendering. It's also the first tool I found that considers
 that a website can consist of multiple applications, via its 'zones' feature.
 
-**** Gatsby
+*** Gatsby (JavaScript)
 One rather unique framework I found - and this is a framework in a strong
 sense, not like the React tools above - is Gatsby. It's unique in the sense that
 while it's a frontend framework, it's not supposed to run in a browser. It's a
@@ -301,22 +302,19 @@ This means it doesn't need to concern itself with many features that would be
 missing in a frontend framework intended for a browser, and those are delegated
 to a different part of the stack.
 
-**** Vue.js
-**** Polymer
+*** Vue.js (JavaScript)
+*** Polymer (JavaScript)
 
 *** Elm
 
-*** Purescript
-**** Halogen
+*** Halogen (Purescript)
 
-*** Haskell
-**** Reflex
-**** Miso
-**** Concur
-**** Transient
+*** Reflex (Haskell)
+*** Miso (Haskell)
+*** Concur (Haskell)
+*** Transient (Haskell)
 ** Backend
-*** PHP
-**** Symfony
+*** Symfony (PHP)
 - CLI - scaffold, dev-server, migrations, code generation, deps security
   checker, dump routes, models
 - templates with pipes & logic, auto escaping, whitespace control
@@ -330,12 +328,11 @@ to a different part of the stack.
 - ORM (doctrine), autogenerator, DQL
 - + caching, i18n, ...
 
-**** Laravel
-**** Zend
-**** Phalcon
+*** Laravel (PHP)
+*** Zend (PHP)
+*** Phalcon (PHP)
 
-*** Python
-**** Django
+*** Django (Python)
 - CLI (manage.py) - inspect, ORM shell, migrations, model from DB, test mail,
   scaffold, user mgmt, graph models
 - ORM (best-in-class)
@@ -348,13 +345,12 @@ to a different part of the stack.
 - i18n (via gettext?)
 - security by default
 
-**** Flask
+*** Flask (Python)
 
-*** JavaScript
-**** Express
-**** Sails.js
-**** Koa
-**** Feathers
+*** Express (JavaScript)
+*** Sails.js (JavaScript)
+*** Koa (JavaScript)
+*** Feathers (JavaScript)
 - server-side only?
 - REST API, WS pub/sub, built-in pagination
 - auth systems - session, JWT, OAuth, mixed-auth endpoints
@@ -362,20 +358,16 @@ to a different part of the stack.
 - pluggable transports (server and client both)
 - hook-able services
 
-*** Ruby
-**** Ruby on Rails
-**** Sinatra
+*** Ruby on Rails (Ruby)
+*** Sinatra (Ruby)
 
-*** C#
-**** ASP.NET
-**** ASP.NET MVC?
+*** ASP.NET (C#)
+*** ASP.NET MVC (C#)
 
-*** Java, Scala
-**** Spring (Java)
-**** Play (Scala, Java)
+*** Spring (Java)
+*** Play (Scala, Java)
 
-*** Elixir
-**** Phoenix
+*** Phoenix (Elixir)
 - CLI tool - generators, nested projects, dev server, compile, migration mgmt
 - basics - routing, pipeline, templating
 - channels - WS, green threads, pub/sub, clients for Java, Swift, C#;
@@ -383,16 +375,15 @@ to a different part of the stack.
 - "presence" - CRDTs
 - built-in ORM, simplified SQL API, 'changesets'
 
-*** Groovy
-**** Grails
+*** Grails (Groovy)
 
-*** Haskell
-**** Yesod
-**** Happstack
-**** Snap
-**** Magicbane
+*** Yesod (Haskell)
+*** Happstack (Haskell)
+*** Snap (Haskell)
+*** Magicbane (Haskell)
+
 ** Hybrid/full-stack
-*** Meteor
+*** Meteor (JavaScript)
 - CLI - meteor (compiler, plugins), devserver, debugger, scaffold, auth, package
   manager, platform (build target management, db shell), 'mup' (deploy over ssh,
   rollback, via docker)

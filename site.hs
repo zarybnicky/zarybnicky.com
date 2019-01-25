@@ -71,6 +71,14 @@ main =
         loadAndApplyTemplate "templates/default.html" postCtx >>=
         cleanIndexUrls
 
+    match "drafts/*" $ do
+      route niceRoute
+      compile $
+        (fmap demoteHeaders <$> pandocCompiler) >>=
+        loadAndApplyTemplate "templates/post.html" postCtx >>=
+        loadAndApplyTemplate "templates/default.html" postCtx >>=
+        cleanIndexUrls
+
     match "index.html" $ do
       route idRoute
       let ctx = constField "title" "Home" <>
