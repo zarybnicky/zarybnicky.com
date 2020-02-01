@@ -8,9 +8,9 @@ executable site
   main-is: site.hs
   hs-source-dirs: .
   build-depends: base == 4.*
+               , containers
                , filepath
                , hakyll >= 4.10
-               , hakyll-series
   ghc-options: -Wall
                -Wcompat
                -Wincomplete-uni-patterns

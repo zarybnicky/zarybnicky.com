@@ -1,10 +1,15 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ViewPatterns #-}
 
-import Data.List (isSuffixOf)
-import Data.Monoid ((<>))
+import Control.Applicative (Alternative, empty)
+import Control.Arrow ((&&&), (>>>))
+import Control.Monad ((>=>), foldM)
+import Data.List (isSuffixOf, elemIndex)
+import qualified Data.Map as Map
+import Data.Monoid ((<>), getAlt)
+import qualified Data.Set as Set
 import Hakyll
-import Hakyll.Web.Series
 import System.FilePath ((</>), takeBaseName, takeDirectory)
 
 hakyllConf :: Configuration
@@ -106,3 +111,42 @@ cleanIndexUrls = return . fmap (withUrls clean)
     clean url
       | idx `isSuffixOf` url = take (length url - length idx) url
       | otherwise = url
+
+-- Hakyll.Web.Series:
+getSeries :: MonadMetadata m => Identifier -> m (Maybe String)
+getSeries = flip getMetadataField "series"
+
+toAlt :: (Foldable f, Alternative m) => f a -> m a
+toAlt = getAlt . foldMap pure
+
+infixr 1 >->
+(>->) :: Functor f =>  (a -> f b) -> (b -> c) -> a -> f c
+f >-> g = f >>> fmap g
+
+seriesField :: Tags -> Context a
+seriesField tags =
+  Context $
+  const . \case
+    "series" -> seriesName >-> StringField
+    "seriesCurPos" ->
+      itemIdentifier &&& otherPostsInSeries >>>sequence >>>
+      fmap (uncurry elemIndex) >=> toAlt >-> succ >>> show >>> StringField
+    "seriesLength" -> otherPostsInSeries >-> length >>> show >>> StringField
+    "seriesUrl" ->
+      seriesName >=>
+      tagsMakeId tags >>> getRoute >=> toAlt >-> toUrl >>> StringField
+    _ -> const empty
+  where
+    seriesName :: Item a -> Compiler String
+    seriesName = itemIdentifier >>> getSeries >=> toAlt
+    otherPostsInSeries = seriesName >=> flip lookup (tagsMap tags) >>> toAlt
+
+buildSeries :: MonadMetadata m => Pattern -> (String -> Identifier) -> m Tags
+buildSeries pattrn makeId = do
+  ids <- getMatches pattrn
+  tagMap <- foldM addTags Map.empty ids
+  inOrder <- (traverse . traverse) sortChronological (Map.assocs tagMap)
+  pure $ Tags inOrder makeId (PatternDependency pattrn $ Set.fromList ids)
+  where
+    addTags tagMap id' =
+      maybe tagMap (\k -> Map.insertWith (++) k [id'] tagMap) <$> getSeries id'

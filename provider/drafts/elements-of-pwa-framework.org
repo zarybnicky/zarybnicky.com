@@ -167,7 +167,7 @@ input, and collect the result.
   provide a desktop application as well
 - benefits are the same as with a native/hybrid mobile application
 
-*** Accessibility (ARIA, ...)
+*** Accessibility
 - the key word now is ARIA = support for screen readers
 - also, semantic elements, text contrast, customization
 - also also, keyboard-accessibility (shortcuts, every clickable element
