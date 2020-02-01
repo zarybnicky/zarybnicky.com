@@ -1,4 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ViewPatterns #-}
 
@@ -20,10 +19,11 @@ hakyllConf = defaultConfiguration
 main :: IO ()
 main =
   hakyllWith hakyllConf $ do
-    series <- buildSeries "posts/*" (fromCapture "series/*.html")
-    let postCtx = seriesField series <>
-                  dateField "date" "%B %e, %Y" <>
-                  defaultContext
+    series <- buildSeries ("posts/*" .||. "drafts/*") (fromCapture "series/*.html")
+    let postCtx =
+          dateField "date" "%B %e, %Y" <>
+          defaultContext <>
+          seriesField series
 
     match "img/*" $ do
       route idRoute
@@ -125,16 +125,15 @@ f >-> g = f >>> fmap g
 
 seriesField :: Tags -> Context a
 seriesField tags =
-  Context $
-  const . \case
+  Context $ \k _ -> case k of
     "series" -> seriesName >-> StringField
     "seriesCurPos" ->
-      itemIdentifier &&& otherPostsInSeries >>>sequence >>>
-      fmap (uncurry elemIndex) >=> toAlt >-> succ >>> show >>> StringField
-    "seriesLength" -> otherPostsInSeries >-> length >>> show >>> StringField
+      itemIdentifier &&& otherPostsInSeries >>> sequence >>>
+      fmap (uncurry elemIndex) >=> toAlt >-> StringField . show . succ
+    "seriesLength" -> otherPostsInSeries >-> StringField . show . length
     "seriesUrl" ->
       seriesName >=>
-      tagsMakeId tags >>> getRoute >=> toAlt >-> toUrl >>> StringField
+      tagsMakeId tags >>> getRoute >=> toAlt >-> StringField . toUrl
     _ -> const empty
   where
     seriesName :: Item a -> Compiler String
