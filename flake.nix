@@ -45,5 +45,44 @@
     devShell.x86_64-linux = hsPackages.shellFor {
       packages = p: [ p.zarybnicky-com-builder ];
     };
+    nixosModule = { config, lib, pkgs, ... }: let
+      pkgName = "zarybnicky-com";
+      cfg = config.services.${pkgName};
+    in {
+      options.services.${pkgName} = {
+        enable = lib.mkEnableOption "${pkgName}";
+        domain = lib.mkOption {
+          type = lib.types.str;
+          description = "${pkgName} Nginx vhost domain";
+          example = "zarybnicky.com";
+        };
+        stateDir = lib.mkOption {
+          type = lib.types.str;
+          description = "${pkgName} state directory";
+          example = "/var/www/zarybnicky.com";
+        };
+      };
+      config = lib.mkIf cfg.enable {
+        services.nginx = {
+          enable = true;
+          enableReload = true;
+          recommendedGzipSettings = true;
+          recommendedOptimisation = true;
+          recommendedProxySettings = true;
+
+          virtualHosts.${cfg.domain}.locations = let
+            pkg = self.packages.x86_64-linux.zarybnicky-com;
+          in {
+            "/".root = pkg;
+            "/".extraConfig = ''
+              etag off;
+              add_header Last-Modified "";
+              add_header etag W/"${builtins.substring 11 32 "${pkg}"}";
+            '';
+            "/static".root = "/var/www/zarybnicky.com";
+          };
+        };
+      };
+    };
   };
 }
