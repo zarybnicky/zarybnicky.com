@@ -6,7 +6,7 @@ import Control.Arrow ((&&&), (>>>))
 import Control.Monad ((>=>), foldM)
 import Data.List (isSuffixOf, elemIndex)
 import qualified Data.Map as Map
-import Data.Monoid ((<>), getAlt)
+import Data.Monoid (getAlt)
 import qualified Data.Set as Set
 import Hakyll
 import System.FilePath ((</>), takeBaseName, takeDirectory)
@@ -140,7 +140,7 @@ seriesField tags =
     seriesName = itemIdentifier >>> getSeries >=> toAlt
     otherPostsInSeries = seriesName >=> flip lookup (tagsMap tags) >>> toAlt
 
-buildSeries :: MonadMetadata m => Pattern -> (String -> Identifier) -> m Tags
+buildSeries :: (MonadFail m, MonadMetadata m) => Pattern -> (String -> Identifier) -> m Tags
 buildSeries pattrn makeId = do
   ids <- getMatches pattrn
   tagMap <- foldM addTags Map.empty ids
