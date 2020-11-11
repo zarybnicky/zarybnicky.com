@@ -5,3 +5,4 @@ _site/
 *.hi
 *.o
 \#*
+.ghc.environment.*
