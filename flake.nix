@@ -27,12 +27,12 @@
         phases = "unpackPhase buildPhase";
         buildInputs = [ final.zarybnicky-com-builder ];
         buildPhase = ''
-        export LOCALE_A RCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive";
-        export LANG=en_U  S.UTF-8
-        site build
-        mkdir -p $out
-        cp -r _site/* $out
-      '';
+          export LOCALE_ARCHIVE="${pkgs.glibcLocales}/lib/locale/locale-archive";
+          export LANG=en_US.UTF-8
+          site build
+          mkdir -p $out
+          cp -r _site/* $out
+        '';
       };
     };
 
