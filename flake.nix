@@ -15,9 +15,11 @@
 
   in {
     overlay = final: prev: {
-      haskellPackages = prev.haskellPackages.extend (prev.haskell.lib.packageSourceOverrides {
-        inherit hakyll;
-        builder = src;
+      haskellPackages = prev.haskellPackages.override (old: {
+        overrides = nixpkgs.lib.composeExtensions (old.overrides or (_: _: {})) (hself: hsuper: {
+          hakyll = hself.callCabal2nix "hakyll" hakyll {};
+          builder = hself.callCabal2nix "builder" src {};
+        });
       });
 
       zarybnicky-com-builder = final.haskellPackages.builder;
