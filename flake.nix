@@ -74,6 +74,7 @@
           virtualHosts.${cfg.domain} = {
             enableACME = true;
             forceSSL = true;
+            serverAliases = [ "www.${cfg.domain}" ];
             locations = {
               "/".root = pkgs.zarybnicky-com;
               "/".extraConfig = ''
