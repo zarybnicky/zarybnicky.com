@@ -71,14 +71,18 @@
           recommendedOptimisation = true;
           recommendedProxySettings = true;
 
-          virtualHosts.${cfg.domain}.locations = {
-            "/".root = pkgs.zarybnicky-com;
-            "/".extraConfig = ''
-              etag off;
-              add_header Last-Modified "";
-              add_header etag W/"${builtins.substring 11 32 "${pkgs.zarybnicky-com}"}";
-            '';
-            "/static".root = "/var/www/zarybnicky.com";
+          virtualHosts.${cfg.domain} = {
+            enableACME = true;
+            forceSSL = true;
+            locations = {
+              "/".root = pkgs.zarybnicky-com;
+              "/".extraConfig = ''
+                etag off;
+                add_header Last-Modified "";
+                add_header etag W/"${builtins.substring 11 32 "${pkgs.zarybnicky-com}"}";
+              '';
+              "/static".root = "/var/www/zarybnicky.com";
+            };
           };
         };
       };
