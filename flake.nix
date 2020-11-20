@@ -10,7 +10,7 @@
       system = "x86_64-linux";
       overlays = [ self.overlay ];
     };
-    src = gitignoreSourcePure [./gitignore] ./.;
+    src = gitignoreSourcePure [./.gitignore] ./.;
 
   in {
     overlay = final: prev: {
