@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "gitignore": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1594969032,
-        "narHash": "sha256-nbZfz02QoVe1yYK7EtCV7wMi4VdHzZEoPg20ZSDo9to=",
-        "owner": "hercules-ci",
-        "repo": "gitignore.nix",
-        "rev": "c4662e662462e7bf3c2a968483478a665d00e717",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "ref": "master",
-        "repo": "gitignore.nix",
-        "type": "github"
-      }
-    },
     "hakyll": {
       "flake": false,
       "locked": {
@@ -49,7 +32,6 @@
     },
     "root": {
       "inputs": {
-        "gitignore": "gitignore",
         "hakyll": "hakyll",
         "nixpkgs": "nixpkgs"
       }

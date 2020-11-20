@@ -1,17 +1,16 @@
 {
   inputs.hakyll = { url = github:jaspervdj/hakyll/master; flake = false; };
-  inputs.gitignore = { url = github:hercules-ci/gitignore.nix/master; flake = false; };
 
-  outputs = { self, nixpkgs, gitignore, hakyll }: let
+  outputs = { self, nixpkgs, hakyll }: let
     inherit (builtins) filterSource;
     inherit (nixpkgs.lib) flip;
-    inherit (import gitignore { inherit (nixpkgs) lib; }) gitignoreSource;
+    inherit (pkgs.nix-gitignore) gitignoreSourcePure;
 
     pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [ self.overlay ];
     };
-    src = gitignoreSource ./.;
+    src = gitignoreSourcePure [./gitignore] ./.;
 
   in {
     overlay = final: prev: {
