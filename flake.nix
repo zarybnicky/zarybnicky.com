@@ -14,12 +14,12 @@
 
   in {
     overlay = final: prev: {
-      haskellPackages = prev.haskellPackages.override (old: {
-        overrides = nixpkgs.lib.composeExtensions (old.overrides or (_: _: {})) (hself: hsuper: {
+      haskell = prev.haskell // {
+        packageOverrides = prev.lib.composeExtensions (prev.haskell.packageOverrides or (_: _: {})) (hself: hsuper: {
           hakyll = hself.callCabal2nix "hakyll" hakyll {};
           builder = hself.callCabal2nix "builder" src {};
         });
-      });
+      };
 
       zarybnicky-com-builder = final.haskellPackages.builder;
       zarybnicky-com = final.stdenv.mkDerivation {
