@@ -17,7 +17,9 @@
       haskell = prev.haskell // {
         packageOverrides = prev.lib.composeExtensions (prev.haskell.packageOverrides or (_: _: {})) (hself: hsuper: {
           hakyll = hself.callCabal2nix "hakyll" hakyll {};
-          builder = hself.callCabal2nix "builder" src {};
+          builder = prev.haskell.lib.justStaticExecutables (
+            hself.callCabal2nix "builder" src {}
+          );
         });
       };
 
