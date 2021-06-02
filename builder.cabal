@@ -10,7 +10,7 @@ executable site
   build-depends: base == 4.*
                , containers
                , filepath
-               , hakyll >= 4.10
+               , hakyll
   ghc-options: -Wall
                -Wcompat
                -Wincomplete-uni-patterns
