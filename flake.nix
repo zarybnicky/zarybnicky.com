@@ -1,5 +1,5 @@
 {
-  outputs = { self, nixpkgs, hakyll }: let
+  outputs = { self, nixpkgs }: let
     inherit (builtins) filterSource;
     inherit (nixpkgs.lib) flip;
     inherit (pkgs.nix-gitignore) gitignoreSourcePure;
@@ -14,6 +14,7 @@
     overlay = final: prev: {
       haskell = prev.haskell // {
         packageOverrides = prev.lib.composeExtensions (prev.haskell.packageOverrides or (_: _: {})) (hself: hsuper: {
+          hakyll = hself.callHackageDirect { pkg = "hakyll"; ver = "4.14.0.0"; sha256 = "aeIy6vpqmYc7yIyYEzBThm/PQ6zXsjSVY5qBqYjLQq8="; } {};
           builder = prev.haskell.lib.justStaticExecutables (
             hself.callCabal2nix "builder" src {}
           );
