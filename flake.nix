@@ -17,6 +17,7 @@
       haskell = prev.haskell // {
         packageOverrides = prev.lib.composeExtensions (prev.haskell.packageOverrides or (_: _: {})) (hself: hsuper: {
           hakyll = hself.callCabal2nix "hakyll" hakyll {};
+          pandoc-citeproc = prev.haskell.lib.unmarkBroken hsuper.pandoc-citeproc;
           builder = prev.haskell.lib.justStaticExecutables (
             hself.callCabal2nix "builder" src {}
           );
