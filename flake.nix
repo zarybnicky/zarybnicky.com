@@ -20,6 +20,8 @@
         });
       };
 
+      gatsby-builder-modules = final.callPackage ./gatsby/modules.nix {};
+
       zarybnicky-com-builder = final.haskellPackages.builder;
       zarybnicky-com = final.stdenv.mkDerivation {
         name = "zarybnicky.com";
@@ -38,10 +40,11 @@
 
     defaultPackage.x86_64-linux = self.packages.x86_64-linux.zarybnicky-com;
     packages.x86_64-linux = {
-      inherit (pkgs) zarybnicky-com-builder zarybnicky-com;
+      inherit (pkgs) zarybnicky-com-builder zarybnicky-com gatsby-builder-modules;
     };
     devShell.x86_64-linux = pkgs.haskellPackages.shellFor {
       packages = p: [ p.builder ];
+      buildInputs = [pkgs.nodePackages.gatsby-cli];
     };
 
     nixosModule = { config, lib, pkgs, ... }: let
@@ -58,6 +61,11 @@
         stateDir = lib.mkOption {
           type = lib.types.str;
           description = "${pkgName} state directory";
+          example = "/var/www/zarybnicky.com";
+        };
+        vaultDir = lib.mkOption {
+          type = lib.types.str;
+          description = "${pkgName} vault source";
           example = "/var/www/zarybnicky.com";
         };
       };
@@ -81,6 +89,9 @@
                 add_header etag W/"${builtins.substring 11 32 "${pkgs.zarybnicky-com}"}";
               '';
               "/static".root = "/var/www/zarybnicky.com";
+              "/gatsby".root = pkgs.callPackage ./gatsby/builder.nix {
+                vault = cfg.vaultDir;
+              };
             };
           };
         };
