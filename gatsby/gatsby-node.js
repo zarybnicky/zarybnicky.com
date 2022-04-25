@@ -322,6 +322,14 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs)
 }
 
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      symlinks: false,
+    },
+  });
+};
+
 function findReferences(content) {
   // Handles both [[Note Title]] and [[Note Title|text to show]] formats
   const linkRegex = /\[\[([^\]\|]+)(\|.+)?\]\]/g

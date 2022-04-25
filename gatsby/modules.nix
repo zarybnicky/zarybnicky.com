@@ -18,8 +18,8 @@ yarn2nix-moretea.mkYarnModules {
   preBuild = "export npm_config_nodedir=${nodejs}";
   pkgConfig = {
     node-sass = {
-      nativeBuildInputs = [];
-      buildInputs = [ libsass pkg-config python3 ];
+      nativeBuildInputs = [pkg-config python3];
+      buildInputs = [libsass];
       postInstall = ''
         LIBSASS_EXT=auto yarn --offline run build
         rm build/config.gypi
