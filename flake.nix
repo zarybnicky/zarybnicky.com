@@ -89,9 +89,9 @@
                 add_header etag W/"${builtins.substring 11 32 "${pkgs.zarybnicky-com}"}";
               '';
               "/static".root = "/var/www/zarybnicky.com";
-              "/gatsby".root = pkgs.callPackage ./gatsby/builder.nix {
+              "/gatsby/".alias = pkgs.callPackage ./gatsby/builder.nix {
                 vault = cfg.vaultDir;
-              };
+              } + "/";
             };
           };
         };
