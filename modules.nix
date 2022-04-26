@@ -2,8 +2,11 @@
 , nix-gitignore
 , libsass
 , nodejs
+, nodePackages
 , pkg-config
 , python3
+, glib
+, vips
 }:
 
 yarn2nix-moretea.mkYarnModules {
@@ -14,6 +17,14 @@ yarn2nix-moretea.mkYarnModules {
   version = "1.0";
   preBuild = "export npm_config_nodedir=${nodejs}";
   pkgConfig = {
+    sharp = {
+      nativeBuildInputs = [ nodePackages.node-gyp python3 pkg-config ];
+      buildInputs = [ glib vips ];
+      postInstall = ''
+        ls ${nodePackages.node-gyp}/bin
+        ${nodePackages.node-gyp}/bin/node-gyp rebuild
+      '';
+    };
     node-sass = {
       nativeBuildInputs = [pkg-config python3];
       buildInputs = [libsass];

@@ -7,12 +7,12 @@
     src = pkgs.nix-gitignore.gitignoreSourcePure [./.gitignore] ./.;
   in {
     overlay = final: prev: {
-      zarybnicky-com-modules = final.callPackage ./gatsby/modules.nix {};
+      zarybnicky-com-modules = final.callPackage ./modules.nix {};
     };
 
     packages.x86_64-linux = {
       inherit (pkgs) zarybnicky-com-modules;
-      zarybnicky-com = pkgs.callPackage ./gatsby/builder.nix {
+      zarybnicky-com = pkgs.callPackage ./builder.nix {
         vault = /home/inuits/Vault;
       };
     };
@@ -59,7 +59,7 @@
             forceSSL = true;
             serverAliases = [ "www.${cfg.domain}" ];
             locations = {
-              "/".root = pkgs.callPackage ./gatsby/builder.nix {
+              "/".root = pkgs.callPackage ./builder.nix {
                 vault = cfg.vaultDir;
               };
               "/".extraConfig = ''

@@ -5,7 +5,6 @@ import Tooltip from '../components/tooltip'
 import { Layout } from '../layout/layout'
 import '../styles/note.css'
 import '../styles/graph.css'
-import makeSlug from '../utils/make-slug';
 import moment from 'moment';
 
 let titles: string[] = []
@@ -143,7 +142,7 @@ export default function Note({ pageContext, data }) {
                     {pageContext.referredBy.map((note, index) => (
                       <div key={index} className="related-group block-box">
                         <Tooltip content={note.html}>
-                          <Link to={`/${makeSlug(note.title)}`}>
+                          <Link to={`/${slugify(note.title)}`}>
                             <h4 className="related-title">{note.title}</h4>
                             <p className="related-excerpt muted-text">{note.excerpt}</p>
                           </Link>
@@ -174,7 +173,7 @@ export default function Note({ pageContext, data }) {
                         <ul>
                           {post.frontmatter.tags.map((tag, index) => (
                             <li key={index}>
-                              <Link to={`/tags/${makeSlug(tag)}`}>{tag}</Link>
+                              <Link to={`/tags/${slugify(tag)}`}>{tag}</Link>
                             </li>
                           ))}
                         </ul>
@@ -224,10 +223,10 @@ function Source({ src }) {
     // Source given as Wiki Link - internal link - [[Text]]
     const titleParts = src.match(/(.+)\|(.+)/) // [[Note Name|Link Text]] format.
     if (titleParts) {
-      link = <Link to={'/' + makeSlug(titleParts[2])}>{titleParts[1]}</Link>
+      link = <Link to={'/' + slugify(titleParts[2])}>{titleParts[1]}</Link>
     } else {
       const title = src.replace(new RegExp(/[\[\]]/, 'g'), '') // eslint-disable-line
-      link = <Link to={'/' + makeSlug(title)}>{title}</Link>
+      link = <Link to={'/' + slugify(title)}>{title}</Link>
     }
   } else {
     // Just an URL given as source

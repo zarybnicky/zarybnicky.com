@@ -4,7 +4,6 @@ import { Layout } from '../layout/layout'
 import NoteList from '../components/note-list'
 import Search from '../components/search'
 import '../styles/index.css'
-import { DefaultMenuStructure, MenuRoot } from '../utils/menu-structure'
 
 export default function Home() {
   const data = useStaticQuery(graphql`
@@ -47,14 +46,6 @@ export default function Home() {
     }
   `)
 
-  let tagList = DefaultMenuStructure('tag-list')
-  tagList.push({ // Add a link to a page that shows all tags.
-    type: 'page',
-    item: 'tags',
-    title: '...',
-    liClassName: 'pill'
-  } as any)
-
   return data.homeNote ? (
     <Layout title={data.homeNote.fields.title} type="home">
       <div className="column is-half">
@@ -70,10 +61,6 @@ export default function Home() {
         <div className="block">
           <h1>{data.site.siteMetadata.title}</h1>
           <p className="lead">{data.site.siteMetadata.description}</p>
-        </div>
-
-        <div className="block tag-list">
-          <MenuRoot menu={tagList} />
         </div>
 
         <div className="block">

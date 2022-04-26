@@ -6,8 +6,8 @@ module.exports = {
   trailingSlash: 'never', // Remove all trailing slashes on each URL, e.g. /x/ to /x
 
   siteMetadata: {
-    title: `Gatsby Garden`,
-    description: `A Digital Garden tended by Gatsby`,
+    title: `Jakub Zárybnický`,
+    description: `A Digital Garden`,
 
     // siteUrl: `https://yoursite.com/notes/`, // URL at which your site will be published. This should be present if you want RSS feed.
     headerMenu: [
@@ -34,6 +34,16 @@ module.exports = {
 
   plugins: [
     `gatsby-plugin-catch-links`,
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true,
+        allExtensions: true,
+      },
+    },
+    'gatsby-plugin-typescript-checker',
 
     // { // Enable this if you want to have an RSS Feed. The `siteMetadata.siteUrl` property should be present for this to work
     //   resolve: `gatsby-plugin-feed`,
@@ -94,12 +104,16 @@ module.exports = {
         ignore: [`**/\.*`],
       },
     },
-
     {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          'gatsby-remark-copy-linked-files',
+          {
+            resolve: 'gatsby-remark-obsidian',
+            options: {
+              titleToURL: require('slugify'),
+            }
+          },
           {
             resolve: 'gatsby-remark-graph',
             options: {
@@ -107,36 +121,14 @@ module.exports = {
               theme: 'neutral',
             }
           },
+          'gatsby-remark-copy-linked-files',
           {
-            resolve: 'gatsby-remark-obsidian',
+            resolve: `gatsby-remark-images`,
             options: {
-              titleToURL: require(`${__dirname}/src/utils/make-slug.js`)
-            }
-          }
+              maxWidth: 590,
+            },
+          },
         ],
-      },
-    },
-
-    {
-      resolve: `gatsby-plugin-typescript`,
-      options: {
-        isTSX: true,
-        allExtensions: true,
-      },
-    },
-    'gatsby-plugin-typescript-checker',
-
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        // printRejected: true, // Print removed selectors and processed file names. Use for debugging.
-        // develop: true, // Enable while using `gatsby develop`
-        // tailwind: true, // Enable tailwindcss support
-        ignore: ['tippy.js/', 'tooltip.css'], // Ignore files/folders
-        // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
-        purgeCSSOptions: {
-          safelist: ['.tippy-box'], // Don't remove this selector
-        },
       },
     },
 

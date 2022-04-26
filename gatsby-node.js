@@ -1,6 +1,6 @@
 const { paginate } = require(`gatsby-awesome-pagination`)
 const path = require(`path`)
-const makeSlug = require(`./src/utils/make-slug`)
+const slugify = require('slugify');
 const _ = require(`lodash`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
@@ -12,7 +12,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     const fileName = createFilePath({ node, getNode, basePath }).replace(/^\/(.+)\/$/, '$1')
     const title = node.frontmatter.title || fileName
-    const slug = makeSlug(node.frontmatter.slug || fileName);
+    const slug = slugify(node.frontmatter.slug || fileName);
     const fileNode = getNode(node.parent)
     const date = node.frontmatter.published || node.frontmatter.created || node.frontmatter.date || fileNode.mtime
     const visibility = node.frontmatter.published ? 'public' : 'unlisted';
@@ -20,36 +20,12 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
     // If you are adding new fields here, add it to createSchemaCustomization() as well.
 
-    createNodeField({
-      node,
-      name: `slug`,
-      value: `/${slug}`,
-    })
-    createNodeField({
-      node,
-      name: `fileName`,
-      value: fileName,
-    })
-    createNodeField({
-      node,
-      name: `date`,
-      value: date,
-    })
-    createNodeField({
-      node,
-      name: `title`,
-      value: title.replace(/\//g, ``),
-    })
-    createNodeField({
-      node,
-      name: `excerpt`,
-      value: excerpt,
-    })
-    createNodeField({
-      node,
-      name: `visibility`,
-      value: visibility,
-    })
+    createNodeField({ node, name: `slug`, value: `/${slug}` });
+    createNodeField({ node, name: `fileName`, value: fileName });
+    createNodeField({ node, name: `date`, value: date });
+    createNodeField({ node, name: `title`, value: title.replace(/\//g, ``) });
+    createNodeField({ node, name: `excerpt`, value: excerpt });
+    createNodeField({ node, name: `visibility`, value: visibility });
 
     // :TODO: Add tags. Ideally, every supported frontmatter should be added as a field.
   }
@@ -180,16 +156,16 @@ exports.createPages = async ({ graphql, actions }) => {
     // Handling Aliases
     for (let j = 0; j < aliases.length; j++) {
       createRedirect({
-        fromPath: `/${makeSlug(aliases[j])}`,
+        fromPath: `/${slugify(aliases[j])}`,
         toPath: node.fields.slug,
         redirectInBrowser: true,
         isPermanent: true,
       })
     }
 
-    if (node.fields.slug != '/' + makeSlug(node.fields.fileName)) { // If there is a custom slug, setup a redirect.
+    if (node.fields.slug != '/' + slugify(node.fields.fileName)) { // If there is a custom slug, setup a redirect.
       createRedirect({
-        fromPath: `/${makeSlug(node.fields.fileName)}`,
+        fromPath: `/${slugify(node.fields.fileName)}`,
         toPath: node.fields.slug,
         redirectInBrowser: true,
         isPermanent: true,
@@ -218,7 +194,7 @@ exports.createPages = async ({ graphql, actions }) => {
       createPage,
       items: taggedNotes,
       itemsPerPage: 10,
-      pathPrefix: `/tags/${makeSlug(tag.fieldValue)}`,
+      pathPrefix: `/tags/${slugify(tag.fieldValue)}`,
       component: path.resolve(`./src/templates/tag.tsx`),
       context: {
         tag: tag.fieldValue,
