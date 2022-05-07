@@ -1,11 +1,10 @@
+import slugify from 'slugify';
 import React from 'react'
-import { graphql, Link, navigate } from 'gatsby'
-import Graph from "react-graph-vis";
+import { graphql, Link } from 'gatsby'
 import Tooltip from '../components/tooltip'
 import { Layout } from '../layout/layout'
-import '../styles/note.css'
-import '../styles/graph.css'
 import moment from 'moment';
+import '../styles/note.css'
 
 let titles: string[] = []
 const makeId = (title: string) => {
@@ -41,67 +40,6 @@ export default function Note({ pageContext, data }) {
     const refNoteTitle = pageContext.refersTo[i]
     if (!nodeExists(refNoteTitle)) graph.nodes.push({ id: makeId(refNoteTitle), label: refNoteTitle })
     graph.edges.push({ from: makeId(post.fields.title), to: makeId(refNoteTitle) })
-  }
-
-  const options = {
-    nodes: {
-      shape: "dot",
-      size: 8,
-      font: {
-        color: "#aaa",
-      },
-      color: {
-        border: "#aaa",
-        background: "#aaa",
-        highlight: {
-          border: "#ddd",
-          background: "#999",
-        }
-      }
-    },
-    edges: {
-      color: {
-        border: "#aaa"
-      },
-      arrows: "middle",
-    }
-  }
-
-  const events = {
-    select: function(event) {
-      var { nodes } = event
-      const id = nodes[0].toLowerCase();
-      navigate(pageContext.linkedNotes[id].slug)
-    }
-  }
-
-  const TooltipLink = (props) => {
-    if (props.href.includes("http")) { // External link
-      // eslint-disable-next-line
-      return <a {...props} />
-
-    } else if (typeof props.children !== 'string') { // There might be cases where an image is refered(or other non notes). 
-      // eslint-disable-next-line
-      return <a {...props} />
-
-    } else if (!pageContext.linkedNotes) { // For unlisted notes. Causes a error otherwise. Because of this, Tooltips are NOT availabe on unlisted notes.
-      // eslint-disable-next-line
-      return <a {...props} />
-
-    } else {
-      const title = props.children.toLowerCase()
-      let linkedNote = pageContext.linkedNotes[title] || null
-
-      if (linkedNote) {
-        return (
-          <Tooltip content={linkedNote.html}>
-            <Link {...props} to={`/${props.href}`} title="" />
-          </Tooltip>
-        );
-      } else {
-        return <Link {...props} to={`/${props.href}`} />
-      }
-    }
   }
 
   return (
@@ -182,14 +120,6 @@ export default function Note({ pageContext, data }) {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="note-graph">
-              <Graph
-                graph={graph}
-                options={options}
-                events={events}
-              />
             </div>
           </div>
         </main>

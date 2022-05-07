@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import { Layout } from '../layout/layout'
 import NoteList from '../components/note-list'
 import Pager from '../components/pager'
@@ -13,8 +13,6 @@ export default function Sitemap({ pageContext, data }) {
         <NoteList notes={data.notes.edges} />
 
         <Pager context={pageContext} />
-
-        <Link to="/note-map">Map of All Notes</Link>
       </div>
     </Layout>
   )
