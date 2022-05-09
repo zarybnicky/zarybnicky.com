@@ -1,0 +1,14 @@
+name: Jakub Zárybnický
+enableToc: true
+openToc: false
+enableLinkPreview: true
+enableLatex: true
+enableSPA: true
+enableContextualBacklinks: true
+description:
+  Personal site
+page_title:
+  "Jakub Zárybnický"
+links:
+  - link_name: GitHub
+    link: https://github.com/zarybnicky

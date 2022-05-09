@@ -1,22 +1,29 @@
 { stdenv
 , nix-gitignore
-, zarybnicky-com-modules
+, hugo
+, hugo-obsidian
 , vault
+, git
 }:
 
 stdenv.mkDerivation {
   name = "zarybnicky.com";
   src = nix-gitignore.gitignoreSourcePure [./.gitignore] ./.;
   phases = "unpackPhase buildPhase";
-  nativeBuildInputs = [zarybnicky-com-modules];
+  nativeBuildInputs = [ hugo hugo-obsidian git ];
   buildPhase = ''
-  mkdir -p $out .cache
-  ln -s ${zarybnicky-com-modules}/node_modules .
+  git init
+  git config user.email "you@example.com"
+  git config user.name "Your Name"
+  git config core.ignorecase true
+  git commit --allow-empty -m "Empty"
 
-  cp -r node_modules/gatsby/cache-dir/* .cache
-  chmod -R ug+w .cache
-  VAULT_LOCATION=${vault} HOME=$(pwd) node_modules/.bin/gatsby build --verbose --no-color
-  find public -name '*.map' -exec sed -i -E 's|\.\./\.\./nix/store/[-.0-9a-z]{59}|.|g' {} \;
+  ln -s ${vault}/Public content/
+  export VAULT=${vault}
+  hugo-obsidian -input=$VAULT -output=./assets/indices -index -root=.
+  hugo --minify
+
+  mkdir -p $out
   mv public/* $out/
 '';
 }

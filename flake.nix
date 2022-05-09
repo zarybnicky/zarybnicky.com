@@ -1,6 +1,4 @@
 {
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/master;
-
   outputs = { self, nixpkgs }: let
     pkgs = import nixpkgs {
       system = "x86_64-linux";
@@ -9,20 +7,21 @@
     src = pkgs.nix-gitignore.gitignoreSourcePure [./.gitignore] ./.;
   in {
     overlay = final: prev: {
-      zarybnicky-com-modules = final.callPackage ./modules.nix {};
+      hugo-obsidian = final.callPackage ./hugo-obsidian.nix {};
     };
 
     packages.x86_64-linux = {
-      inherit (pkgs) zarybnicky-com-modules;
+      inherit (pkgs) hugo-obsidian;
+
       zarybnicky-com = pkgs.callPackage ./builder.nix {
         vault = /home/inuits/Vault;
       };
     };
 
     devShell.x86_64-linux = pkgs.mkShell {
-      name = "nix-devShell";
       nativeBuildInputs = [
-        pkgs.nodePackages.gatsby-cli
+        pkgs.hugo
+        pkgs.hugo-obsidian
       ];
     };
 
@@ -48,7 +47,11 @@
           example = "/var/www/zarybnicky.com";
         };
       };
-      config = lib.mkIf cfg.enable {
+      config = lib.mkIf cfg.enable (let
+        pkg = pkgs.callPackage ./builder.nix {
+          vault = cfg.vaultDir;
+        };
+      in {
         services.nginx = {
           enable = true;
           enableReload = true;
@@ -61,19 +64,17 @@
             forceSSL = true;
             serverAliases = [ "www.${cfg.domain}" ];
             locations = {
-              "/".root = pkgs.callPackage ./builder.nix {
-                vault = cfg.vaultDir;
-              };
+              "/".root = pkg;
               "/".extraConfig = ''
                 etag off;
                 add_header Last-Modified "";
-                add_header etag W/"${builtins.substring 11 32 "${pkgs.zarybnicky-com}"}";
+                add_header etag W/"${builtins.substring 11 32 "${pkg}"}";
               '';
               "/static".root = cfg.stateDir;
             };
           };
         };
-      };
+      });
     };
   };
 }

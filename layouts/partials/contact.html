@@ -1,0 +1,13 @@
+<!-- Contact Info -->
+<div id="contact_buttons">
+    <footer>
+        <ul>
+            {{ if not .IsHome }}
+            <li><a href="/">Home</a></li>
+            {{end}}
+            {{- range $.Site.Data.config.links -}}
+            <li><a href="{{.link}}">{{.link_name}}</a></li>
+            {{- end -}}
+        </ul>
+    </footer>
+</div>

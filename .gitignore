@@ -1,6 +1,11 @@
 # gatsby files
-.cache/
 public
+resources
+.idea
+content/notes
+assets/indices/linkIndex.json
+assets/indices/contentIndex.json
+
 
 .direnv/
 result
