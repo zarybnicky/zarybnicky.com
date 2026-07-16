@@ -9,6 +9,7 @@ import qualified Data.Map as Map
 import Data.Monoid (getAlt)
 import qualified Data.Set as Set
 import Hakyll
+import Hakyll.Core.Dependencies
 import System.FilePath ((</>), takeBaseName, takeDirectory)
 
 hakyllConf :: Configuration
@@ -145,7 +146,7 @@ buildSeries pattrn makeId = do
   ids <- getMatches pattrn
   tagMap <- foldM addTags Map.empty ids
   inOrder <- (traverse . traverse) sortChronological (Map.assocs tagMap)
-  pure $ Tags inOrder makeId (PatternDependency pattrn $ Set.fromList ids)
+  Tags inOrder makeId <$> makePatternDependency KindContent pattrn
   where
     addTags tagMap id' =
       maybe tagMap (\k -> Map.insertWith (++) k [id'] tagMap) <$> getSeries id'

@@ -1,17 +1,15 @@
 {
   outputs = { self, nixpkgs }: let
-    inherit (builtins) filterSource;
-    inherit (nixpkgs.lib) flip;
     inherit (pkgs.nix-gitignore) gitignoreSourcePure;
 
     pkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [ self.overlay ];
+      overlays = nixpkgs.lib.attrValues self.overlays;
     };
     src = gitignoreSourcePure [./.gitignore] ./.;
 
   in {
-    overlay = final: prev: {
+    overlays.default = final: prev: {
       haskell = prev.haskell // {
         packageOverrides = prev.lib.composeExtensions (prev.haskell.packageOverrides or (_: _: {})) (hself: hsuper: {
           builder = prev.haskell.lib.justStaticExecutables (
@@ -36,15 +34,14 @@
       };
     };
 
-    defaultPackage.x86_64-linux = self.packages.x86_64-linux.zarybnicky-com;
     packages.x86_64-linux = {
       inherit (pkgs) zarybnicky-com-builder zarybnicky-com;
     };
-    devShell.x86_64-linux = pkgs.haskellPackages.shellFor {
+    devShells.x86_64-linux.default = pkgs.haskellPackages.shellFor {
       packages = p: [ p.builder ];
     };
 
-    nixosModule = { config, lib, pkgs, ... }: let
+    nixosModules.default = { config, lib, pkgs, ... }: let
       pkgName = "zarybnicky-com";
       cfg = config.services.${pkgName};
     in {
